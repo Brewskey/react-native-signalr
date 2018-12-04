@@ -6,7 +6,7 @@ const makeSureDocument = () => {
     return () => null;
   }
 
-  window.document = { readyState: 'complete' };
+  window.document = { readyState: 'complete', env: 'react-native' };
 
   if (!window.document.readyState) {
     window.document.readyState = 'complete';
@@ -53,7 +53,7 @@ export default {
     hubConnectionFunc.start = (options, ...args) => {
       const revertDocument = makeSureDocument();
 
-      if (window.navigator.userAgent === 'react-native') {
+      if (window.document.env === 'react-native') {
         window.document.createElement = () => {
           return {
             protocol,
